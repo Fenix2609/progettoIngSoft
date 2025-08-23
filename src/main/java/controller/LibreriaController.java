@@ -27,12 +27,39 @@ public class LibreriaController {
 
     public void aggiungiLibro(Libro libro) { libri.add(libro); }
     public void rimuoviLibro(String isbn) { libri.removeIf(b -> b.getIsbn().equals(isbn)); }
+    public void modificaTitoloLibro(Libro libro,String nuovoTitolo) {
+        libro.setTitolo(nuovoTitolo);
+    }
+    public void modificaAutoreLibro(Libro libro, String nuovoAutore) {
+        libro.setAutore(nuovoAutore);
+    }
 
+    public void modificaIsbnLibro(Libro libro, String nuovoIsbn) {
+        libro.setIsbn(nuovoIsbn);
+    }
+
+    public void modificaGenereLibro(Libro libro, String nuovoGenere) {
+        libro.setGenere(nuovoGenere);
+    }
+
+    public void modificaValutazioneLibro(Libro libro,int nuovaValutazione) {
+        libro.setValutazione(nuovaValutazione);
+    }
+
+    public void modificaStatoLetturaLibro(Libro libro, String nuovoStato) {
+        libro.setStatoLettura(nuovoStato);
+    }
+
+
+
+    //ricerca e filtro
     public List<Libro> getLibri() { return libri; }
 
-    public List<Libro> cercaDalTitolo(String titolo) {
-        return libri.stream().filter(b -> b.getTitolo().toLowerCase().contains(titolo.toLowerCase()))
-                .collect(Collectors.toList());
+    public Libro cercaPerIsbn(String isbn) {
+        return libri.stream()
+                .filter(b -> b.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
     }
 
     public List<Libro> filtraPerGenere(String genere) {
@@ -47,4 +74,7 @@ public class LibreriaController {
 
     public void save(String nomeFile) { persistence.save(nomeFile, libri); }
     public void load(String nomeFile) { libri = persistence.load(nomeFile); }
+
+    @Override
+    public String toString() { return libri.toString(); }
 }
