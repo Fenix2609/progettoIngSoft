@@ -6,7 +6,7 @@ import persistence.CsvPersistence;
 import persistence.JsonPersistence;
 import persistence.PersistenceManager;
 import persistence.PersistenceProxy;
-import command.*;
+
 import java.util.Scanner;
 
 public class Main {
@@ -31,10 +31,11 @@ public class Main {
             System.out.println("4) Modifica libro");
             System.out.println("5) Filtra per genere");
             System.out.println("6) Ordina per autore");
-            System.out.println("7) Salva");
-            System.out.println("8) Carica");
-            System.out.println("9) Rimuovi libro");
-            System.out.println("10) Modifica ISBN");
+            System.out.println("7) Ordina per stato di lettura");
+            System.out.println("8) Salva");
+            System.out.println("9) Carica");
+            System.out.println("10) Rimuovi libro");
+            System.out.println("11) Modifica ISBN");
             System.out.println("0) Esci");
             System.out.print("Scelta: ");
 
@@ -108,27 +109,31 @@ public class Main {
                     break;
 
                 case 6:
-                    controller.sortByAuthor().forEach(System.out::println);
+                    System.out.print("Autore: ");
+                    controller.ordinaPerAutore().forEach(System.out::println);
                     break;
-
                 case 7:
+                    System.out.print("Stato di lettura: ");
+                    controller.ordinaPerStato().forEach(System.out::println);
+                    break;
+                case 8:
                     System.out.print("Nome file: "); String f = scanner.nextLine();
                     controller.save(f);
                     break;
 
-                case 8:
+                case 9:
                     System.out.print("Nome file: "); f = scanner.nextLine();
                     controller.load(f);
                     break;
 
-                case 9: // ✅ Rimuovere libro
+                case 10: // ✅ Rimuovere libro
                     System.out.print("ISBN del libro da rimuovere: ");
                     isbn = scanner.nextLine();
                     controller.rimuoviLibro(isbn);
                     System.out.println("Libro rimosso (se esiste).");
                     break;
 
-                case 10: // ✅ Modificare ISBN
+                case 11: // ✅ Modificare ISBN
                     System.out.print("ISBN del libro da modificare: ");
                     isbn = scanner.nextLine();
                     libro = controller.cercaPerIsbn(isbn);

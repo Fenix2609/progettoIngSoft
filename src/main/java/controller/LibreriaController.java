@@ -67,8 +67,12 @@ public class LibreriaController {
                 .collect(Collectors.toList());
     }
 
-    public List<Libro> sortByAuthor() {
+    public List<Libro> ordinaPerAutore() {
         return libri.stream().sorted(Comparator.comparing(Libro::getAutore))
+                .collect(Collectors.toList());
+    }
+    public List<Libro> ordinaPerStato() {
+        return libri.stream().sorted(Comparator.comparing(Libro::getStatoLettura))
                 .collect(Collectors.toList());
     }
 
