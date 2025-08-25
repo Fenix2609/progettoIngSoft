@@ -27,27 +27,27 @@ public class ModificaLibroCommand implements Command {
             int mod = scanner.nextInt(); scanner.nextLine();
 
             switch (mod) {
-                case 1 -> {
+                case 1 :
                     System.out.print("Nuovo titolo: ");
                     controller.modificaTitoloLibro(libro, scanner.nextLine());
-                }
-                case 2 -> {
+                    break;
+                case 2 :
                     System.out.print("Nuovo autore: ");
                     controller.modificaAutoreLibro(libro, scanner.nextLine());
-                }
-                case 3 -> {
+                    break;
+                case 3 :
                     System.out.print("Nuovo genere: ");
                     controller.modificaGenereLibro(libro, scanner.nextLine());
-                }
-                case 4 -> {
+                    break;
+                case 4 :
                     System.out.print("Nuova valutazione: ");
                     controller.modificaValutazioneLibro(libro, scanner.nextInt());
                     scanner.nextLine();
-                }
-                case 5 -> {
+                break;
+                case 5 :
                     System.out.print("Nuovo stato lettura: ");
                     controller.modificaStatoLetturaLibro(libro, scanner.nextLine());
-                }
+                break;
             }
             System.out.println("Modifica completata.");
         } else {
