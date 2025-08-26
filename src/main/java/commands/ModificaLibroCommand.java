@@ -1,57 +1,49 @@
 package commands;
 
 import controller.LibreriaController;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import model.Libro;
-import java.util.Scanner;
+
+import java.util.Optional;
 
 public class ModificaLibroCommand implements Command {
     private LibreriaController controller;
-    private Scanner scanner;
 
-    public ModificaLibroCommand(LibreriaController controller, Scanner scanner) {
+    public ModificaLibroCommand(LibreriaController controller) {
         this.controller = controller;
-        this.scanner = scanner;
     }
 
     @Override
-    public void execute() {
-        System.out.print("ISBN del libro da modificare: ");
-        String isbn = scanner.nextLine();
-        Libro libro = controller.cercaPerIsbn(isbn);
-        if (libro != null) {
-            System.out.println("1) Modifica titolo");
-            System.out.println("2) Modifica autore");
-            System.out.println("3) Modifica genere");
-            System.out.println("4) Modifica valutazione");
-            System.out.println("5) Modifica stato lettura");
-            int mod = scanner.nextInt(); scanner.nextLine();
+    public void execute() { }
 
-            switch (mod) {
-                case 1 :
-                    System.out.print("Nuovo titolo: ");
-                    controller.modificaTitoloLibro(libro, scanner.nextLine());
-                    break;
-                case 2 :
-                    System.out.print("Nuovo autore: ");
-                    controller.modificaAutoreLibro(libro, scanner.nextLine());
-                    break;
-                case 3 :
-                    System.out.print("Nuovo genere: ");
-                    controller.modificaGenereLibro(libro, scanner.nextLine());
-                    break;
-                case 4 :
-                    System.out.print("Nuova valutazione: ");
-                    controller.modificaValutazioneLibro(libro, scanner.nextInt());
-                    scanner.nextLine();
-                break;
-                case 5 :
-                    System.out.print("Nuovo stato lettura: ");
-                    controller.modificaStatoLetturaLibro(libro, scanner.nextLine());
-                break;
-            }
-            System.out.println("Modifica completata.");
-        } else {
-            System.out.println("Libro non trovato.");
-        }
+    public void executeFX(TableView<Libro> table) {
+        Libro selected = table.getSelectionModel().getSelectedItem();
+        if (selected == null) return;
+
+        TextInputDialog dialog = new TextInputDialog(selected.getTitolo());
+        dialog.setHeaderText("Nuovo titolo:");
+        Optional<String> titolo = dialog.showAndWait();
+        titolo.ifPresent(t -> controller.modificaTitoloLibro(selected, t));
+
+        dialog = new TextInputDialog(selected.getAutore());
+        dialog.setHeaderText("Nuovo autore:");
+        Optional<String> autore = dialog.showAndWait();
+        autore.ifPresent(a -> controller.modificaAutoreLibro(selected, a));
+
+        dialog = new TextInputDialog(selected.getGenere());
+        dialog.setHeaderText("Nuovo genere:");
+        Optional<String> genere = dialog.showAndWait();
+        genere.ifPresent(g -> controller.modificaGenereLibro(selected, g));
+
+        dialog = new TextInputDialog(String.valueOf(selected.getValutazione()));
+        dialog.setHeaderText("Nuova valutazione:");
+        Optional<String> valut = dialog.showAndWait();
+        valut.ifPresent(v -> controller.modificaValutazioneLibro(selected, Integer.parseInt(v)));
+
+        dialog = new TextInputDialog(selected.getStatoLettura());
+        dialog.setHeaderText("Nuovo stato lettura:");
+        Optional<String> stato = dialog.showAndWait();
+        stato.ifPresent(s -> controller.modificaStatoLetturaLibro(selected, s));
     }
 }

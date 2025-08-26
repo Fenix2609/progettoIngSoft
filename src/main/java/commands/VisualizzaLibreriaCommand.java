@@ -1,4 +1,4 @@
-package commands;
+package commands; //non serve per javafx, observable si aggiorna da solo
 
 import controller.LibreriaController;
 

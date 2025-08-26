@@ -1,21 +1,30 @@
 package commands;
 
 import controller.LibreriaController;
-import java.util.Scanner;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TextInputDialog;
+import model.Libro;
+
+import java.util.List;
+import java.util.Optional;
 
 public class FiltraGenereCommand implements Command {
     private LibreriaController controller;
-    private Scanner scanner;
 
-    public FiltraGenereCommand(LibreriaController controller, Scanner scanner) {
+    public FiltraGenereCommand(LibreriaController controller) {
         this.controller = controller;
-        this.scanner = scanner;
     }
 
     @Override
-    public void execute() {
-        System.out.print("Genere: ");
-        String g = scanner.nextLine();
-        controller.filtraPerGenere(g).forEach(System.out::println);
+    public void execute() { }
+
+    public void executeFX(ObservableList<Libro> libriObservable) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setHeaderText("Genere da filtrare:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(genere -> {
+            List<Libro> filtered = controller.filtraPerGenere(genere);
+            libriObservable.setAll(filtered);
+        });
     }
 }

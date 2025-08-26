@@ -1,23 +1,29 @@
 package commands;
 
 import controller.LibreriaController;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TableView;
 import model.Libro;
-import java.util.Scanner;
+
+import java.util.Optional;
 
 public class CercaLibroCommand implements Command {
     private LibreriaController controller;
-    private Scanner scanner;
 
-    public CercaLibroCommand(LibreriaController controller, Scanner scanner) {
+    public CercaLibroCommand(LibreriaController controller) {
         this.controller = controller;
-        this.scanner = scanner;
     }
 
     @Override
-    public void execute() {
-        System.out.print("ISBN da cercare: ");
-        String isbn = scanner.nextLine();
-        Libro trovato = controller.cercaPerIsbn(isbn);
-        System.out.println(trovato != null ? trovato : "Nessun libro trovato.");
+    public void execute() { /* console version */ }
+
+    public void executeFX(TableView<Libro> table) {
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setHeaderText("Inserisci ISBN da cercare:");
+        Optional<String> result = dialog.showAndWait();
+        result.ifPresent(isbn -> {
+            Libro l = controller.cercaPerIsbn(isbn);
+            if (l != null) table.getSelectionModel().select(l);
+        });
     }
 }

@@ -1,6 +1,10 @@
 package commands;
 
 import controller.LibreriaController;
+import javafx.collections.ObservableList;
+import model.Libro;
+
+import java.util.List;
 
 public class OrdinaPerAutoreCommand implements Command {
     private LibreriaController controller;
@@ -10,7 +14,10 @@ public class OrdinaPerAutoreCommand implements Command {
     }
 
     @Override
-    public void execute() {
-        controller.ordinaPerAutore().forEach(System.out::println);
+    public void execute() { }
+
+    public void executeFX(ObservableList<Libro> libriObservable) {
+        List<Libro> sorted = controller.ordinaPerAutore();
+        libriObservable.setAll(sorted);
     }
 }

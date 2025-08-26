@@ -1,22 +1,24 @@
 package commands;
 
 import controller.LibreriaController;
-import java.util.Scanner;
+import javafx.collections.ObservableList;
+import javafx.scene.control.TableView;
+import model.Libro;
 
 public class RimuoviLibroCommand implements Command {
     private LibreriaController controller;
-    private Scanner scanner;
 
-    public RimuoviLibroCommand(LibreriaController controller, Scanner scanner) {
+    public RimuoviLibroCommand(LibreriaController controller) {
         this.controller = controller;
-        this.scanner = scanner;
     }
 
     @Override
-    public void execute() {
-        System.out.print("ISBN del libro da rimuovere: ");
-        String isbn = scanner.nextLine();
-        controller.rimuoviLibro(isbn);
-        System.out.println("Libro rimosso (se esiste).");
+    public void execute() { }
+
+    public void executeFX(TableView<Libro> table, ObservableList<Libro> libriObservable) {
+        Libro selected = table.getSelectionModel().getSelectedItem();
+        if (selected != null) {
+            controller.rimuoviLibro(selected.getIsbn());
+        }
     }
 }

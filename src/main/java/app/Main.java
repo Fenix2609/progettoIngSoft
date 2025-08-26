@@ -25,17 +25,17 @@ public class Main {
 
         // Mappa dei comandi
         Map<Integer, Command> comandi = new HashMap<>();
-        comandi.put(1, new AggiungiLibroCommand(controller, scanner));
+        comandi.put(1, new AggiungiLibroCommand(controller));
         comandi.put(2, new VisualizzaLibreriaCommand(controller));
-        comandi.put(3, new CercaLibroCommand(controller, scanner));
-        comandi.put(4, new ModificaLibroCommand(controller, scanner));
-        comandi.put(5, new FiltraGenereCommand(controller, scanner));
+        comandi.put(3, new CercaLibroCommand(controller));
+        comandi.put(4, new ModificaLibroCommand(controller));
+        comandi.put(5, new FiltraGenereCommand(controller));
         comandi.put(6, new OrdinaPerAutoreCommand(controller));
         comandi.put(7, new OrdinaPerStatoCommand(controller));
         comandi.put(8, new SalvaCommand(controller, scanner));
-        comandi.put(9, new CaricaCommand(controller, scanner));
-        comandi.put(10, new RimuoviLibroCommand(controller, scanner));
-        comandi.put(11, new ModificaIsbnCommand(controller, scanner));
+        comandi.put(9, new CaricaCommand(controller));
+        comandi.put(10, new RimuoviLibroCommand(controller));
+        comandi.put(11, new ModificaIsbnCommand(controller));
 
         boolean running = true;
         while (running) {
