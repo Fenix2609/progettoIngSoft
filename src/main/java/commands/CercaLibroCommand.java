@@ -22,8 +22,13 @@ public class CercaLibroCommand implements Command {
         dialog.setHeaderText("Inserisci ISBN da cercare:");
         Optional<String> result = dialog.showAndWait();
         result.ifPresent(isbn -> {
-            Libro l = controller.cercaPerIsbn(isbn);
-            if (l != null) table.getSelectionModel().select(l);
+            for (Libro libro : table.getItems()) {
+                if (libro.getIsbn().equals(isbn)) {
+                    table.getSelectionModel().select(libro);
+                    table.scrollTo(libro); // opzionale: fa scroll sulla riga
+                    break;
+                }
+            }
         });
     }
 }

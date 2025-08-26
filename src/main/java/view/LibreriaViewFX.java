@@ -5,6 +5,7 @@ import controller.LibreriaController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Libro;
@@ -44,6 +45,8 @@ public class LibreriaViewFX {
         TableColumn<Libro, String> statoCol = new TableColumn<>("Stato");
         statoCol.setCellValueFactory(cell -> cell.getValue().statoLetturaProperty());
 
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
+
         table.getColumns().addAll(titoloCol, autoreCol, isbnCol, genereCol, valutCol, statoCol);
 
         // Buttons
@@ -52,8 +55,8 @@ public class LibreriaViewFX {
         Button modificaIsbnBtn = new Button("Modifica ISBN");
         Button rimuoviBtn = new Button("Rimuovi Libro");
         Button filtraBtn = new Button("Filtra per Genere");
-        Button ordinaAutoreBtn = new Button("Ordina per Autore");
-        Button ordinaStatoBtn = new Button("Ordina per Stato");
+        //Button ordinaAutoreBtn = new Button("Ordina per Autore");
+        //Button ordinaStatoBtn = new Button("Ordina per Stato");
         Button cercaBtn = new Button("Cerca per ISBN");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
@@ -64,8 +67,8 @@ public class LibreriaViewFX {
         ModificaIsbnCommand modificaIsbnCmd = new ModificaIsbnCommand(controller);
         RimuoviLibroCommand rimuoviCmd = new RimuoviLibroCommand(controller);
         FiltraGenereCommand filtraCmd = new FiltraGenereCommand(controller);
-        OrdinaPerAutoreCommand ordinaAutoreCmd = new OrdinaPerAutoreCommand(controller);
-        OrdinaPerStatoCommand ordinaStatoCmd = new OrdinaPerStatoCommand(controller);
+        //OrdinaPerAutoreCommand ordinaAutoreCmd = new OrdinaPerAutoreCommand(controller);
+        //OrdinaPerStatoCommand ordinaStatoCmd = new OrdinaPerStatoCommand(controller);
         CercaLibroCommand cercaCmd = new CercaLibroCommand(controller);
         SalvaCommand salvaCmd = new SalvaCommand(controller, null);
         CaricaCommand caricaCmd = new CaricaCommand(controller);
@@ -76,18 +79,29 @@ public class LibreriaViewFX {
         modificaIsbnBtn.setOnAction(e -> modificaIsbnCmd.executeFX(table, libriObservable));
         rimuoviBtn.setOnAction(e -> rimuoviCmd.executeFX(table, libriObservable));
         filtraBtn.setOnAction(e -> filtraCmd.executeFX(libriObservable));
-        ordinaAutoreBtn.setOnAction(e -> ordinaAutoreCmd.executeFX(libriObservable));
-        ordinaStatoBtn.setOnAction(e -> ordinaStatoCmd.executeFX(libriObservable));
+        //ordinaAutoreBtn.setOnAction(e -> ordinaAutoreCmd.executeFX(libriObservable));
+        //ordinaStatoBtn.setOnAction(e -> ordinaStatoCmd.executeFX(libriObservable));
         cercaBtn.setOnAction(e -> cercaCmd.executeFX(table));
         salvaBtn.setOnAction(e -> salvaCmd.executeFX());
         caricaBtn.setOnAction(e -> caricaCmd.executeFX(libriObservable));
 
         // Layout
         HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, modificaIsbnBtn, rimuoviBtn);
-        HBox buttons2 = new HBox(10, filtraBtn, ordinaAutoreBtn, ordinaStatoBtn, cercaBtn);
-        HBox buttons3 = new HBox(10, salvaBtn, caricaBtn);
 
+        //HBox buttons2 = new HBox(10, filtraBtn, ordinaAutoreBtn, ordinaStatoBtn, cercaBtn);
+        HBox buttons2 = new HBox(10, filtraBtn, cercaBtn);
+
+        HBox buttons3 = new HBox(10, salvaBtn, caricaBtn);
+        buttons1.setAlignment(Pos.CENTER);
+        buttons1.setPadding(new Insets(10));
+        buttons1.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+        buttons2.setAlignment(Pos.CENTER);
+        buttons2.setPadding(new Insets(10));
+        buttons3.setAlignment(Pos.CENTER);
+        buttons3.setPadding(new Insets(10));
         root.getChildren().addAll(table, buttons1, buttons2, buttons3);
+
+
     }
 
     public VBox getRoot() {
