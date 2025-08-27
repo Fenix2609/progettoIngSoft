@@ -72,7 +72,7 @@ public class LibreriaViewFX {
         // Buttons
         Button aggiungiBtn = new Button("Aggiungi Libro");
         Button modificaBtn = new Button("Modifica Libro");
-        Button modificaIsbnBtn = new Button("Modifica ISBN");
+        //Button modificaIsbnBtn = new Button("Modifica ISBN");
         Button rimuoviBtn = new Button("Rimuovi Libro");
         Button filtraBtn = new Button("Filtra per Genere");
         //Button ordinaAutoreBtn = new Button("Ordina per Autore");
@@ -80,7 +80,7 @@ public class LibreriaViewFX {
         Button cercaBtn = new Button("Cerca per ISBN");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
-        Button switchFormatBtn = new Button("Cambia formato (CSV/JSON)");
+        Button switchFormatBtn = new Button("Formato attuale: JSON (clicca per cambiare)");
 
         // Command instances
         AggiungiLibroCommand aggiungiCmd = new AggiungiLibroCommand(controller);
@@ -97,7 +97,7 @@ public class LibreriaViewFX {
         // Set actions
         aggiungiBtn.setOnAction(e -> aggiungiCmd.executeFX(libriObservable));
         modificaBtn.setOnAction(e -> modificaCmd.executeFX(table));
-        modificaIsbnBtn.setOnAction(e -> modificaIsbnCmd.executeFX(table, libriObservable));
+        //modificaIsbnBtn.setOnAction(e -> modificaIsbnCmd.executeFX(table, libriObservable));
         rimuoviBtn.setOnAction(e -> rimuoviCmd.executeFX(table, libriObservable));
         filtraBtn.setOnAction(e -> filtraCmd.executeFX(libriObservable));
         //ordinaAutoreBtn.setOnAction(e -> ordinaAutoreCmd.executeFX(libriObservable));
@@ -123,9 +123,10 @@ public class LibreriaViewFX {
         });
 
         // Layout
-        HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, modificaIsbnBtn, rimuoviBtn);
+        //HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, modificaIsbnBtn, rimuoviBtn); è stato rimosso il btn ISBN
+        HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, rimuoviBtn);
 
-        //HBox buttons2 = new HBox(10, filtraBtn, ordinaAutoreBtn, ordinaStatoBtn, cercaBtn);
+        //HBox buttons2 = new HBox(10, filtraBtn, ordinaAutoreBtn, ordinaStatoBtn, cercaBtn); sono stati rimossi i btn ordinaAutore e ordinaStato
         HBox buttons2 = new HBox(10, filtraBtn, cercaBtn);
 
         HBox buttons3 = new HBox(10, salvaBtn, caricaBtn);
@@ -138,8 +139,14 @@ public class LibreriaViewFX {
         buttons3.setAlignment(Pos.CENTER);
         buttons3.setPadding(new Insets(10));
         buttons3.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+        // Metto il bottone in alto a sinistra
+        HBox topBar = new HBox(10, switchFormatBtn);
+        topBar.setPadding(new Insets(10));
+        topBar.setStyle("-fx-font-size: 14px;");
+        topBar.setAlignment(Pos.TOP_CENTER);
 
-        root.getChildren().addAll(table, buttons1, buttons2, buttons3);
+
+        root.getChildren().addAll(topBar,table, buttons1, buttons2, buttons3);
 
 
     }

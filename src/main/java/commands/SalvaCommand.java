@@ -2,6 +2,7 @@ package commands;
 
 import controller.LibreriaController;
 import javafx.scene.control.TextInputDialog;
+import persistence.CsvPersistence;
 
 import java.util.Optional;
 import java.util.Scanner;
@@ -23,9 +24,17 @@ public class SalvaCommand implements Command {
     }
 
     public void executeFX() {
-        TextInputDialog dialog = new TextInputDialog("libreria.csv");
-        dialog.setTitle("Salva Libreria");
-        dialog.setHeaderText("Inserisci il nome del file CSV da salvare");
+        TextInputDialog dialog;
+        if(controller.getPersistence() instanceof CsvPersistence){
+            dialog = new TextInputDialog("libreria.csv");
+            dialog.setTitle("Salva Libreria");
+            dialog.setHeaderText("Inserisci il nome del file CSV da salvare");
+        }
+        else{
+            dialog = new TextInputDialog("libreria.json");
+            dialog.setTitle("Salva Libreria");
+            dialog.setHeaderText("Inserisci il nome del file JSON da salvare");
+        }
         dialog.setContentText("Nome file:");
 
         Optional<String> result = dialog.showAndWait();
