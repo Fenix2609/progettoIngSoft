@@ -33,6 +33,9 @@ public class LibreriaController extends Observable {
     public void setPersistence(PersistenceManager persistence) {
         this.persistence = persistence;
     }
+    public PersistenceManager getPersistence() {
+        return persistence;
+    }
 
     // --- Modifiche dati con notify ---
 
@@ -119,6 +122,7 @@ public class LibreriaController extends Observable {
         this.libri = (caricati != null) ? caricati : new ArrayList<>();
         notifyObservers(); // aggiorna subito la GUI
     }
+
 
     @Override
     public String toString() {

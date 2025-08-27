@@ -9,6 +9,8 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Libro;
+import persistence.CsvPersistence;
+import persistence.JsonPersistence;
 
 public class LibreriaViewFX {
 
@@ -45,6 +47,24 @@ public class LibreriaViewFX {
         TableColumn<Libro, String> statoCol = new TableColumn<>("Stato");
         statoCol.setCellValueFactory(cell -> cell.getValue().statoLetturaProperty());
 
+        valutCol.setCellFactory(col -> new TableCell<Libro, Number>() {
+            @Override
+            protected void updateItem(Number item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty || item == null ? null : "★ " + item.intValue());
+                setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+            }
+        });
+
+        titoloCol.setCellFactory(col -> new TableCell<Libro, String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                setText(empty ? null : item);
+                setStyle("-fx-font-weight: bold;");
+            }
+        });
+
         table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         table.getColumns().addAll(titoloCol, autoreCol, isbnCol, genereCol, valutCol, statoCol);
@@ -60,6 +80,7 @@ public class LibreriaViewFX {
         Button cercaBtn = new Button("Cerca per ISBN");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
+        Button switchFormatBtn = new Button("Cambia formato (CSV/JSON)");
 
         // Command instances
         AggiungiLibroCommand aggiungiCmd = new AggiungiLibroCommand(controller);
@@ -84,6 +105,22 @@ public class LibreriaViewFX {
         cercaBtn.setOnAction(e -> cercaCmd.executeFX(table));
         salvaBtn.setOnAction(e -> salvaCmd.executeFX());
         caricaBtn.setOnAction(e -> caricaCmd.executeFX(libriObservable));
+        switchFormatBtn.setOnAction(e -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "Vuoi davvero cambiare formato di salvataggio/caricamento?",
+                    ButtonType.YES, ButtonType.NO);
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.YES) {
+                    if (controller.getPersistence() instanceof CsvPersistence) {
+                        controller.setPersistence(new JsonPersistence());
+                        switchFormatBtn.setText("Formato attuale: JSON (clicca per cambiare)");
+                    } else {
+                        controller.setPersistence(new CsvPersistence());
+                        switchFormatBtn.setText("Formato attuale: CSV (clicca per cambiare)");
+                    }
+                }
+            });
+        });
 
         // Layout
         HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, modificaIsbnBtn, rimuoviBtn);
@@ -97,8 +134,11 @@ public class LibreriaViewFX {
         buttons1.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
         buttons2.setAlignment(Pos.CENTER);
         buttons2.setPadding(new Insets(10));
+        buttons2.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
         buttons3.setAlignment(Pos.CENTER);
         buttons3.setPadding(new Insets(10));
+        buttons3.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+
         root.getChildren().addAll(table, buttons1, buttons2, buttons3);
 
 
