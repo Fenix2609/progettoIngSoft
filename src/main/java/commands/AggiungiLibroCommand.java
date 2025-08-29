@@ -84,6 +84,13 @@ public class AggiungiLibroCommand implements Command {
         if (titolo.isPresent() && autore.isPresent() && isbn.isPresent()
                 && genere.isPresent() && valutazioneStr.isPresent() && stato.isPresent()) {
             valutazione = Integer.parseInt(valutazioneStr.get());
+            //Controllo ISBN duplicato
+            for (Libro l : controller.getLibri()) {
+                if (l.getIsbn().equals(isbn.get())) {
+                    showAlert("Errore: esiste già un libro con lo stesso ISBN!");
+                    return;
+                }
+            }
             Libro l = new Libro(titolo.get(), autore.get(), isbn.get(), genere.get(), valutazione, stato.get());
             controller.aggiungiLibro(l);
         }

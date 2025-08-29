@@ -36,23 +36,29 @@ public class LibreriaViewFX {
 
         TableColumn<Libro, String> titoloCol = new TableColumn<>("Titolo");
         titoloCol.setCellValueFactory(cell -> cell.getValue().titoloProperty());
+        titoloCol.setStyle("-fx-font-size: 16px");
         TableColumn<Libro, String> autoreCol = new TableColumn<>("Autore");
+        autoreCol.setStyle("-fx-font-size: 16px");
         autoreCol.setCellValueFactory(cell -> cell.getValue().autoreProperty());
         TableColumn<Libro, String> isbnCol = new TableColumn<>("ISBN");
+        isbnCol.setStyle("-fx-font-size: 16px");
         isbnCol.setCellValueFactory(cell -> cell.getValue().isbnProperty());
         TableColumn<Libro, String> genereCol = new TableColumn<>("Genere");
         genereCol.setCellValueFactory(cell -> cell.getValue().genereProperty());
+        genereCol.setStyle("-fx-font-size: 16px");
         TableColumn<Libro, Number> valutCol = new TableColumn<>("Valutazione");
         valutCol.setCellValueFactory(cell -> cell.getValue().valutazioneProperty());
+        valutCol.setStyle("-fx-font-size: 16px");
         TableColumn<Libro, String> statoCol = new TableColumn<>("Stato");
         statoCol.setCellValueFactory(cell -> cell.getValue().statoLetturaProperty());
+        statoCol.setStyle("-fx-font-size: 16px");
 
         valutCol.setCellFactory(col -> new TableCell<Libro, Number>() {
             @Override
             protected void updateItem(Number item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty || item == null ? null : "★ " + item.intValue());
-                setStyle("-fx-font-weight: bold; -fx-font-size: 14px;");
+                setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             }
         });
 
@@ -61,7 +67,7 @@ public class LibreriaViewFX {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 setText(empty ? null : item);
-                setStyle("-fx-font-weight: bold;");
+                setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             }
         });
 
@@ -77,7 +83,7 @@ public class LibreriaViewFX {
         Button filtraBtn = new Button("Filtra per Genere");
         //Button ordinaAutoreBtn = new Button("Ordina per Autore");
         //Button ordinaStatoBtn = new Button("Ordina per Stato");
-        Button cercaBtn = new Button("Cerca per ISBN");
+        Button cercaBtn = new Button("Cerca Libro");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
         Button switchFormatBtn = new Button("Formato attuale: JSON (clicca per cambiare)");
@@ -132,17 +138,17 @@ public class LibreriaViewFX {
         HBox buttons3 = new HBox(10, salvaBtn, caricaBtn);
         buttons1.setAlignment(Pos.CENTER);
         buttons1.setPadding(new Insets(10));
-        buttons1.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+        buttons1.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
         buttons2.setAlignment(Pos.CENTER);
         buttons2.setPadding(new Insets(10));
-        buttons2.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+        buttons2.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
         buttons3.setAlignment(Pos.CENTER);
         buttons3.setPadding(new Insets(10));
-        buttons3.setStyle("-fx-font-size: 14px; -fx-padding: 10 20;");
+        buttons3.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
         // Metto il bottone in alto a sinistra
         HBox topBar = new HBox(10, switchFormatBtn);
         topBar.setPadding(new Insets(10));
-        topBar.setStyle("-fx-font-size: 14px;");
+        topBar.setStyle("-fx-font-size: 16px;");
         topBar.setAlignment(Pos.TOP_CENTER);
 
 

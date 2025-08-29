@@ -47,6 +47,12 @@ public class ModificaLibroCommand implements Command {
             showAlert("ISBN non valido!");
             return;
         }
+        for (Libro l : controller.getLibri()) {
+            if (l.getIsbn().equals(isbn.get())) {
+                showAlert("Errore: esiste già un libro con lo stesso ISBN!");
+                return;
+            }
+        }
         isbn.ifPresent(i -> controller.modificaIsbnLibro(selected, i));
 
         dialog = new TextInputDialog(selected.getGenere());
