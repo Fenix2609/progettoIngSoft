@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LibreriaController extends Observable {
+public class LibreriaController extends Observable {   // controllare se devo mettere un occorrenza tipo libreria usa 1 solo persistence managheer, tipo Diagramma ER
     private List<Libro> libri;
     private PersistenceManager persistence;
 
