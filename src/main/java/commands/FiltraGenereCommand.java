@@ -20,11 +20,18 @@ public class FiltraGenereCommand implements Command {
 
     public void executeFX(ObservableList<Libro> libriObservable) {
         TextInputDialog dialog = new TextInputDialog();
-        dialog.setHeaderText("Genere da filtrare:");
+        dialog.setHeaderText("Genere da filtrare (lascia vuoto per mostrare tutti):");
         Optional<String> result = dialog.showAndWait();
+
         result.ifPresent(genere -> {
-            List<Libro> filtered = controller.filtraPerGenere(genere);
-            libriObservable.setAll(filtered);
+            if (genere.trim().isEmpty()) {
+                // Se non è stato inserito niente → mostra tutti i libri
+                libriObservable.setAll(controller.getLibri());
+            } else {
+                // Altrimenti applica il filtro
+                List<Libro> filtered = controller.filtraPerGenere(genere);
+                libriObservable.setAll(filtered);
+            }
         });
     }
 }

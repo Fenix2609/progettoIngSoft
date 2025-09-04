@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class ModificaLibroCommand implements Command {
     private LibreriaController controller;
-
+    private String titoloLibro;
     public ModificaLibroCommand(LibreriaController controller) {
         this.controller = controller;
     }
@@ -22,9 +22,12 @@ public class ModificaLibroCommand implements Command {
         Libro selected = table.getSelectionModel().getSelectedItem();
         if (selected == null) return;
 
+        titoloLibro=selected.getTitolo();
+
         TextInputDialog dialog = new TextInputDialog(selected.getTitolo());
         dialog.setHeaderText("Nuovo titolo:");
         Optional<String> titolo = dialog.showAndWait();
+        titoloLibro=titolo.get();
         if (titolo.get().trim().length() == 0 || titolo.get().length() > 100) {
             showAlert("Titolo non valido! Deve contenere 1-100 caratteri.");
             return;
@@ -48,7 +51,7 @@ public class ModificaLibroCommand implements Command {
             return;
         }
         for (Libro l : controller.getLibri()) {
-            if (l.getIsbn().equals(isbn.get())) {
+            if (l.getIsbn().equals(isbn.get()) && ! l.getTitolo().equals(titoloLibro)) {
                 showAlert("Errore: esiste già un libro con lo stesso ISBN!");
                 return;
             }

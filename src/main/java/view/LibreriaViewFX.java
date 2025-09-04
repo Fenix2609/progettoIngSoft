@@ -128,31 +128,27 @@ public class LibreriaViewFX {
             });
         });
 
-        // Layout
-        //HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, modificaIsbnBtn, rimuoviBtn); è stato rimosso il btn ISBN
-        HBox buttons1 = new HBox(10, aggiungiBtn, modificaBtn, rimuoviBtn);
+        // Layout finale con tutti i bottoni su una riga
+        HBox leftButtons = new HBox(10, salvaBtn, caricaBtn);
+        leftButtons.setAlignment(Pos.CENTER_LEFT);
+        leftButtons.setStyle("-fx-font-size: 16px;");
 
-        //HBox buttons2 = new HBox(10, filtraBtn, ordinaAutoreBtn, ordinaStatoBtn, cercaBtn); sono stati rimossi i btn ordinaAutore e ordinaStato
-        HBox buttons2 = new HBox(10, filtraBtn, cercaBtn);
+        HBox rightButtons = new HBox(10, aggiungiBtn, modificaBtn, rimuoviBtn, filtraBtn, cercaBtn);
+        rightButtons.setAlignment(Pos.CENTER_RIGHT);
+        rightButtons.setStyle("-fx-font-size: 16px;");
 
-        HBox buttons3 = new HBox(10, salvaBtn, caricaBtn);
-        buttons1.setAlignment(Pos.CENTER);
-        buttons1.setPadding(new Insets(10));
-        buttons1.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
-        buttons2.setAlignment(Pos.CENTER);
-        buttons2.setPadding(new Insets(10));
-        buttons2.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
-        buttons3.setAlignment(Pos.CENTER);
-        buttons3.setPadding(new Insets(10));
-        buttons3.setStyle("-fx-font-size: 16px; -fx-padding: 10 20;");
-        // Metto il bottone in alto a sinistra
+        BorderPane bottomBar = new BorderPane();
+        bottomBar.setLeft(leftButtons);
+        bottomBar.setRight(rightButtons);
+        bottomBar.setPadding(new Insets(10));
+
+// Metto il bottone switch formato in alto
         HBox topBar = new HBox(10, switchFormatBtn);
         topBar.setPadding(new Insets(10));
         topBar.setStyle("-fx-font-size: 16px;");
-        topBar.setAlignment(Pos.TOP_CENTER);
+        topBar.setAlignment(Pos.TOP_LEFT);
 
-
-        root.getChildren().addAll(topBar,table, buttons1, buttons2, buttons3);
+        root.getChildren().addAll(topBar, table, bottomBar);
 
 
     }
