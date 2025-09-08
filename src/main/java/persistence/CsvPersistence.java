@@ -11,7 +11,7 @@ public class CsvPersistence implements PersistenceManager {
     @Override
     public void save(String nomeFile, List<Libro> libri) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(nomeFile))) {
-            // ✅ Controllo estensione file
+            // Controllo estensione file
             if (!nomeFile.toLowerCase().endsWith(".csv")) {
                 System.out.println("Errore: il file deve avere estensione .csv");
             }

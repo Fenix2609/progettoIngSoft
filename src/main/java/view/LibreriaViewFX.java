@@ -33,7 +33,7 @@ public class LibreriaViewFX {
 
         table = new TableView<>();
         table.setItems(libriObservable);
-
+        //setting delle colonne della tabella
         TableColumn<Libro, String> titoloCol = new TableColumn<>("Titolo");
         titoloCol.setCellValueFactory(cell -> cell.getValue().titoloProperty());
         titoloCol.setStyle("-fx-font-size: 16px");
@@ -55,9 +55,9 @@ public class LibreriaViewFX {
 
         valutCol.setCellFactory(col -> new TableCell<Libro, Number>() {
             @Override
-            protected void updateItem(Number item, boolean empty) {
+            protected void updateItem(Number item, boolean empty) { //cellfactory viene usato per aggiungere stile di scrittura su tutta la colonna
                 super.updateItem(item, empty);
-                setText(empty || item == null ? null : "★ " + item.intValue());
+                setText(empty || item == null ? null : "★ " + item.intValue()); //ogni cella valutazione ha una stella oltre che al numero
                 setStyle("-fx-font-weight: bold; -fx-font-size: 16px;");
             }
         });
@@ -78,24 +78,18 @@ public class LibreriaViewFX {
         // Buttons
         Button aggiungiBtn = new Button("Aggiungi Libro");
         Button modificaBtn = new Button("Modifica Libro");
-        //Button modificaIsbnBtn = new Button("Modifica ISBN");
         Button rimuoviBtn = new Button("Rimuovi Libro");
         Button filtraBtn = new Button("Filtra per Genere");
-        //Button ordinaAutoreBtn = new Button("Ordina per Autore");
-        //Button ordinaStatoBtn = new Button("Ordina per Stato");
         Button cercaBtn = new Button("Cerca Libro");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
         Button switchFormatBtn = new Button("Formato attuale: JSON (clicca per cambiare)");
 
-        // Command instances
+        // Istanze Command
         AggiungiLibroCommand aggiungiCmd = new AggiungiLibroCommand(controller);
         ModificaLibroCommand modificaCmd = new ModificaLibroCommand(controller);
-        ModificaIsbnCommand modificaIsbnCmd = new ModificaIsbnCommand(controller);
         RimuoviLibroCommand rimuoviCmd = new RimuoviLibroCommand(controller);
         FiltraGenereCommand filtraCmd = new FiltraGenereCommand(controller);
-        //OrdinaPerAutoreCommand ordinaAutoreCmd = new OrdinaPerAutoreCommand(controller);
-        //OrdinaPerStatoCommand ordinaStatoCmd = new OrdinaPerStatoCommand(controller);
         CercaLibroCommand cercaCmd = new CercaLibroCommand(controller);
         SalvaCommand salvaCmd = new SalvaCommand(controller, null);
         CaricaCommand caricaCmd = new CaricaCommand(controller);
@@ -103,11 +97,8 @@ public class LibreriaViewFX {
         // Set actions
         aggiungiBtn.setOnAction(e -> aggiungiCmd.executeFX(libriObservable));
         modificaBtn.setOnAction(e -> modificaCmd.executeFX(table));
-        //modificaIsbnBtn.setOnAction(e -> modificaIsbnCmd.executeFX(table, libriObservable));
         rimuoviBtn.setOnAction(e -> rimuoviCmd.executeFX(table, libriObservable));
         filtraBtn.setOnAction(e -> filtraCmd.executeFX(libriObservable));
-        //ordinaAutoreBtn.setOnAction(e -> ordinaAutoreCmd.executeFX(libriObservable));
-        //ordinaStatoBtn.setOnAction(e -> ordinaStatoCmd.executeFX(libriObservable));
         cercaBtn.setOnAction(e -> cercaCmd.executeFX(table));
         salvaBtn.setOnAction(e -> salvaCmd.executeFX());
         caricaBtn.setOnAction(e -> caricaCmd.executeFX(libriObservable));
@@ -128,7 +119,7 @@ public class LibreriaViewFX {
             });
         });
 
-        // Layout finale con tutti i bottoni su una riga
+        // Uso questo layout per mettere tutti i bottoni su una riga
         HBox leftButtons = new HBox(10, salvaBtn, caricaBtn);
         leftButtons.setAlignment(Pos.CENTER_LEFT);
         leftButtons.setStyle("-fx-font-size: 16px;");
@@ -137,12 +128,12 @@ public class LibreriaViewFX {
         rightButtons.setAlignment(Pos.CENTER_RIGHT);
         rightButtons.setStyle("-fx-font-size: 16px;");
 
-        BorderPane bottomBar = new BorderPane();
+        BorderPane bottomBar = new BorderPane(); //contenitore unico per metterci su una stessa riga tutti i bottoni
         bottomBar.setLeft(leftButtons);
         bottomBar.setRight(rightButtons);
         bottomBar.setPadding(new Insets(10));
 
-// Metto il bottone switch formato in alto
+        // Metto il bottone switch formato in alto
         HBox topBar = new HBox(10, switchFormatBtn);
         topBar.setPadding(new Insets(10));
         topBar.setStyle("-fx-font-size: 16px;");

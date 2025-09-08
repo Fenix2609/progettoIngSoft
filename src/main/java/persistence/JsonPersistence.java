@@ -25,7 +25,7 @@ public class JsonPersistence implements PersistenceManager {
                 return;
             }
 
-            // 🔄 Converto Libro -> LibroDTO
+            // Converto Libro -> LibroDTO
             List<LibroDto> dtoList = new ArrayList<>();
             for (Libro l : libri) {
                 dtoList.add(new LibroDto(

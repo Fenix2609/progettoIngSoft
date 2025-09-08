@@ -2,7 +2,7 @@ package model;
 import javafx.beans.property.*;
 
 public class Libro {
-    private StringProperty titolo;
+    private StringProperty titolo; // servono dati property per poter funzionare con javaFX
     private StringProperty autore;
     private StringProperty isbn;
     private StringProperty genere;

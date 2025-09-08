@@ -1,6 +1,6 @@
 package model;
 
-public class LibroDto {
+public class LibroDto { //Serve Dto per dare dati funzionanti quando si usa la strategia Json
     private String titolo;
     private String autore;
     private String isbn;

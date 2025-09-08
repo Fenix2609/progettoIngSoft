@@ -1,5 +1,18 @@
-dragon ball,toriyama,0000,comb,5,letto
-Op,Oda,0001,comb,5,da leggere
-potter,rowling,0010,fantasy,4,in lettura
-naruto,kishimoto,0011,comb,3,da leggere
-1,1,1,2,1,1
+[
+  {
+    "titolo": "a",
+    "autore": "a",
+    "isbn": "a",
+    "genere": "a",
+    "valutazione": 1,
+    "stato": "in corso"
+  },
+  {
+    "titolo": "c",
+    "autore": "c",
+    "isbn": "c",
+    "genere": "c",
+    "valutazione": 3,
+    "stato": "da leggere"
+  }
+]

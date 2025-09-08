@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class LibreriaController extends Observable {   // controllare se devo mettere un occorrenza tipo libreria usa 1 solo persistence managheer, tipo Diagramma ER
+public class LibreriaController extends Observable {
     private List<Libro> libri;
     private PersistenceManager persistence;
 
@@ -29,16 +29,16 @@ public class LibreriaController extends Observable {   // controllare se devo me
         return instance;
     }
 
-    // (Opzionale) cambio strategia di persistenza a runtime
+    // cambio strategia di persistenza a runtime
     public void setPersistence(PersistenceManager persistence) {
         this.persistence = persistence;
     }
+    //Controllo strategia in uso
     public PersistenceManager getPersistence() {
         return persistence;
     }
 
-    // --- Modifiche dati con notify ---
-
+    // Modifiche dati con notify
     public void aggiungiLibro(Libro libro) {
         libri.add(libro);
         notifyObservers();
@@ -79,17 +79,10 @@ public class LibreriaController extends Observable {   // controllare se devo me
         notifyObservers();
     }
 
-    // --- Query / viste (non mutano lo stato) ---
+    // Query / viste
 
     public List<Libro> getLibri() {
         return libri;
-    }
-
-    public Libro cercaPerIsbn(String isbn) {
-        return libri.stream()
-                .filter(b -> b.getIsbn().equals(isbn))
-                .findFirst()
-                .orElse(null);
     }
 
     public List<Libro> filtraPerGenere(String genere) {
@@ -98,19 +91,8 @@ public class LibreriaController extends Observable {   // controllare se devo me
                 .collect(Collectors.toList());
     }
 
-    public List<Libro> ordinaPerAutore() {
-        return libri.stream()
-                .sorted(Comparator.comparing(Libro::getAutore))
-                .collect(Collectors.toList());
-    }
 
-    public List<Libro> ordinaPerStato() {
-        return libri.stream()
-                .sorted(Comparator.comparing(Libro::getStatoLettura))
-                .collect(Collectors.toList());
-    }
-
-    // --- Persistenza ---
+    // Persistenza
 
     public void save(String nomeFile) {
         persistence.save(nomeFile, libri);
