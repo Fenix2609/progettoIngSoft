@@ -14,5 +14,13 @@
     "genere": "c",
     "valutazione": 3,
     "stato": "da leggere"
+  },
+  {
+    "titolo": "a",
+    "autore": "a",
+    "isbn": "2",
+    "genere": "a",
+    "valutazione": 2,
+    "stato": "letto"
   }
 ]

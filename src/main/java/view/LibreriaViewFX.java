@@ -80,6 +80,7 @@ public class LibreriaViewFX {
         Button modificaBtn = new Button("Modifica Libro");
         Button rimuoviBtn = new Button("Rimuovi Libro");
         Button filtraBtn = new Button("Filtra per Genere");
+        Button filtraStatoBtn = new Button("Filtra per Stato");
         Button cercaBtn = new Button("Cerca Libro");
         Button salvaBtn = new Button("Salva");
         Button caricaBtn = new Button("Carica");
@@ -90,6 +91,7 @@ public class LibreriaViewFX {
         ModificaLibroCommand modificaCmd = new ModificaLibroCommand(controller);
         RimuoviLibroCommand rimuoviCmd = new RimuoviLibroCommand(controller);
         FiltraGenereCommand filtraCmd = new FiltraGenereCommand(controller);
+        FiltraStatoCommand filtraStatoCmd = new FiltraStatoCommand(controller);
         CercaLibroCommand cercaCmd = new CercaLibroCommand(controller);
         SalvaCommand salvaCmd = new SalvaCommand(controller, null);
         CaricaCommand caricaCmd = new CaricaCommand(controller);
@@ -99,6 +101,7 @@ public class LibreriaViewFX {
         modificaBtn.setOnAction(e -> modificaCmd.executeFX(table));
         rimuoviBtn.setOnAction(e -> rimuoviCmd.executeFX(table, libriObservable));
         filtraBtn.setOnAction(e -> filtraCmd.executeFX(libriObservable));
+        filtraStatoBtn.setOnAction(e -> filtraStatoCmd.executeFX(libriObservable));
         cercaBtn.setOnAction(e -> cercaCmd.executeFX(table));
         salvaBtn.setOnAction(e -> salvaCmd.executeFX());
         caricaBtn.setOnAction(e -> caricaCmd.executeFX(libriObservable));
@@ -124,7 +127,7 @@ public class LibreriaViewFX {
         leftButtons.setAlignment(Pos.CENTER_LEFT);
         leftButtons.setStyle("-fx-font-size: 16px;");
 
-        HBox rightButtons = new HBox(10, aggiungiBtn, modificaBtn, rimuoviBtn, filtraBtn, cercaBtn);
+        HBox rightButtons = new HBox(10, aggiungiBtn, modificaBtn, rimuoviBtn, filtraBtn, filtraStatoBtn, cercaBtn);
         rightButtons.setAlignment(Pos.CENTER_RIGHT);
         rightButtons.setStyle("-fx-font-size: 16px;");
 

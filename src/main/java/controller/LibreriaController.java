@@ -91,6 +91,15 @@ public class LibreriaController extends Observable {
                 .collect(Collectors.toList());
     }
 
+    public List<Libro> filtraPerStato(String stato) {
+        if (stato == null || stato.isBlank()) {
+            return new ArrayList<>(libri); // nessun filtro, ritorna tutti
+        }
+        return libri.stream()
+                .filter(l -> l.getStatoLettura().equalsIgnoreCase(stato))
+                .collect(Collectors.toList());
+    }
+
 
     // Persistenza
 
